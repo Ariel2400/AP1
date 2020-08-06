@@ -46,7 +46,7 @@ ErrorCode matrix_copy(PMatrix* result, CPMatrix source){
     }
     for (int i = 0; i < (*result)->height; i++) {
         for (int j = 0; j < (*result)->width; j++) {
-            matrix_setValue(result, i, j, source->member[i][j]);
+            matrix_setValue(*result, i, j, source->member[i][j]);
         }
     }
 }
@@ -58,19 +58,19 @@ void matrix_destroy(PMatrix matrix){
     free(matrix);
 }
 
-ErrorCode matrix_getHeight(PMatrix matrix, uint32_t* result) {
-    if(matrix == NULL || matrix->height == NULL) {
+ErrorCode matrix_getHeight(CPMatrix matrix, uint32_t* result) {
+    if(matrix == NULL || matrix->height <= 0) {
         return ERROR_FAILURE_INPUT_ERROR;
     }
-    result = matrix->height;
+    *result =(int) matrix->height;
     return ERROR_SUCCESS;
 }
-ErrorCode matrix_getWidth(PMatrix matrix, uint32_t* result) {
-    if(matrix == NULL || matrix->height == NULL) {
+ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t* result) {
+    if(matrix == NULL || matrix->height <= 0) {
 
         return ERROR_FAILURE_INPUT_ERROR;
     }
-    result = matrix->width;
+    *result = (int) matrix->width;
     return ERROR_SUCCESS;
 }
 ErrorCode matrix_setValue(PMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
@@ -100,11 +100,11 @@ ErrorCode matrix_add(PMatrix* result, CPMatrix lhs, CPMatrix rhs){
         return ERROR_FAILURE_INPUT_ERROR;
     }
     if (result == NULL) {
-        result = matrix_create(result, lhs->height, lhs->width);
+        matrix_create(result, lhs->height, lhs->width);
     }
     for (int i = 0; i < lhs->height; i++){
         for (int j = 0; j < lhs->width; ++j) {
-            matrix_setValue(result, i, j, lhs->member[i][j] + rhs->member[i][j]);
+            matrix_setValue(*result, i, j, lhs->member[i][j] + rhs->member[i][j]);
         }
     }
     return ERROR_SUCCESS;
@@ -121,7 +121,7 @@ ErrorCode matrix_multiplyMatrices(PMatrix* result, CPMatrix lhs, CPMatrix rhs) {
             for (int k = 0; k < lhs->width; k++) {
                 valueToSet =+ lhs->member[i][k]*rhs->member[k][j];
             }
-            matrix_setValue(result, i, j, valueToSet);
+            matrix_setValue(*result, i, j, valueToSet);
         }
     }
     return ERROR_SUCCESS;
