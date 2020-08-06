@@ -13,6 +13,9 @@ typedef struct Matrix {
 } Matrix;
 
 ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
+  if (matrix != NULL) {
+    return ERROR_FAILURE_INPUT_ERROR;
+  }
   *matrix = (Matrix *)malloc(sizeof(Matrix));
   if (matrix == NULL) {
     return ERROR_FAILURE_CANT_ALLOCATE;
