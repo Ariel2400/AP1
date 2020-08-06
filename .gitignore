@@ -52,14 +52,20 @@ Mkfile.old
 dkms.conf
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #auto generated CMake files 
 build/
 
 #auto generated vscode files
 =======
+=======
+>>>>>>> added a Cmake project and included auto generated files in .gitignore
 #cmake auto-generated dir
 build/
 
 #vscode auto-generated dir
+<<<<<<< HEAD
+>>>>>>> added a Cmake project and included auto generated files in .gitignore
+=======
 >>>>>>> added a Cmake project and included auto generated files in .gitignore
 .vscode/
