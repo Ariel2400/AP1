@@ -5,6 +5,7 @@ set(C_STANDART C99)
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 add_library(matrix SHARED ErrorCode.c Matrix.c)
 add_compile_options(-Wall -Wextra -pedantic -Werror)
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
@@ -18,6 +19,9 @@ add_library(AP1-1 SHARED  ErrorCode.c Matrix.c)
 =======
 add_library(matrix SHARED  ErrorCode.c Matrix.c)
 >>>>>>> Changed destination library to 'libmatrix.so'
+=======
+add_library(matrix SHARED ErrorCode.c Matrix.c)
+>>>>>>> deleted unneccesary space
 add_compile_options(-Wall -Wextra -pedantic -Werror)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
