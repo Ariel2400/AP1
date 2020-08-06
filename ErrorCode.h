@@ -4,9 +4,12 @@
 #include <stdint.h>
 
 typedef enum {
-    // DON'T CHANGE THIS VALUE!
-    ERROR_SUCCESS = 0,ERROR_FAILURE = 1, ERROR_FAILURE_CANT_ALLOCATE = 2,
-    ERROR_FAILURE_INPUT_ERROR = 3, ERROR_FAILURE_LOGIC = 4
+  // DON'T CHANGE THIS VALUE!
+  ERROR_SUCCESS = 0,
+  ERROR_FAILURE = 1,
+  ERROR_FAILURE_CANT_ALLOCATE = 2,
+  ERROR_FAILURE_INPUT_ERROR = 3,
+  ERROR_FAILURE_LOGIC = 4
 } ErrorCode;
 
 /**
@@ -23,4 +26,4 @@ bool error_isSuccess(ErrorCode code);
  * @param[in] code the error code.
  * @return const char* the textual representation of the error code.
  */
-const char* error_getErrorMessage(ErrorCode code);
+const char *error_getErrorMessage(ErrorCode code);
