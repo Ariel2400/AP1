@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 typedef enum {
+<<<<<<< HEAD
 <<<<<<< HEAD:src/ErrorCode.h
   // DON'T CHANGE THIS VALUE!
   ERROR_SUCCESS = 0,
@@ -15,6 +16,14 @@ typedef enum {
     ERROR_SUCCESS = 0,ERROR_FAILURE = 1, ERROR_FAILURE_CANT_ALLOCATE = 2,
     ERROR_FAILURE_INPUT_ERROR = 3, ERROR_FAILURE_LOGIC = 4
 >>>>>>> Added diffrent error types:ErrorCode.h
+=======
+  // DON'T CHANGE THIS VALUE!
+  ERROR_SUCCESS = 0,
+  ERROR_FAILURE = 1,
+  ERROR_FAILURE_CANT_ALLOCATE = 2,
+  ERROR_FAILURE_INPUT_ERROR = 3,
+  ERROR_FAILURE_LOGIC = 4
+>>>>>>> Reformatted source files
 } ErrorCode;
 
 /**
