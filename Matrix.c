@@ -14,26 +14,26 @@ typedef struct Matrix{
 } Matrix;
 
 ErrorCode matrix_create(PMatrix* matrix, uint32_t height, uint32_t width){
-    matrix = (Matrix **)malloc(sizeof(Matrix));
+    *matrix = (Matrix *)malloc(sizeof(Matrix));
     if(matrix == NULL) {
         return ERROR_FAILURE_CANT_ALLOCATE;
     }
-    matrix->width = width;
-    matrix->height = height;
-    matrix->member = (double**)malloc(matrix->height * sizeof(double *));
-    if(matrix->member == NULL) {
-        free(matrix);
+    (*matrix)->width = width;
+    (*matrix)->height = height;
+    (*matrix)->member = (double**)malloc((*matrix)->height * sizeof(double *));
+    if((*matrix)->member == NULL) {
+        free(*matrix);
         return ERROR_FAILURE_CANT_ALLOCATE;
     }
-    for(int i =0; i<matrix->height; i++) {
-        matrix->member[i] = (double*)calloc(matrix->width * sizeof(double));
-        if(matrix->member[i] == NULL) {
-            free(matrix->member);
-            free(matrix);
+    for(int i =0; i<(*matrix)->height; i++) {
+        (*matrix)->member[i] = (double*)calloc((*matrix)->width, (*matrix)->width * sizeof(double));
+        if((*matrix)->member[i] == NULL) {
+            free((*matrix)->member);
+            free(*matrix);
             return ERROR_FAILURE_CANT_ALLOCATE;
         }
     }
-    return ERROR_SUCCESS
+    return ERROR_SUCCESS;
 }
 
 ErrorCode matrix_copy(PMatrix* result, CPMatrix source){
@@ -41,18 +41,18 @@ ErrorCode matrix_copy(PMatrix* result, CPMatrix source){
         error_getErrorMessage(ERROR_FAILURE_INPUT_ERROR);
         return ERROR_FAILURE;
     }
-    if(error_isSuccess(matrix_create(result, source->height, source->width))){
+    if(!error_isSuccess(matrix_create(result, source->height, source->width))){
         return ERROR_FAILURE_CANT_ALLOCATE;
     }
-    for (int i = 0; i < result->height; i++) {
-        for (int j = 0; j < result->width; j++) {
+    for (int i = 0; i < (*result)->height; i++) {
+        for (int j = 0; j < (*result)->width; j++) {
             matrix_setValue(result, i, j, source->member[i][j]);
         }
     }
 }
 void matrix_destroy(PMatrix matrix){
     for(int i = 0; i<matrix->height; i++){
-        free(matrix[i]);
+        free(matrix->member[i]);
     }
     free(matrix->member);
     free(matrix);
@@ -80,7 +80,7 @@ ErrorCode matrix_setValue(PMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
 
         return ERROR_FAILURE_INPUT_ERROR;
     }
-    matrix[rowIndex][colIndex] = value;
+    (matrix)->member[rowIndex][colIndex] = value;
     return ERROR_SUCCESS;
 }
 
@@ -90,7 +90,7 @@ ErrorCode matrix_getValue(CPMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
         || colIndex < 0 || colIndex >= matrix->width) {
         return ERROR_FAILURE_INPUT_ERROR;
     }
-    value = matrix[rowIndex][colIndex];
+    *value = matrix->member[rowIndex][colIndex];
     return ERROR_SUCCESS;
 }
 
@@ -115,8 +115,8 @@ ErrorCode matrix_multiplyMatrices(PMatrix* result, CPMatrix lhs, CPMatrix rhs) {
         return ERROR_FAILURE;
     }
     matrix_create(result, lhs->height, rhs->width);
-    for (int i = 0; i < result->height; i++) {
-        for (int j = 0; j < result->width; j++) {
+    for (int i = 0; i < (*result)->height; i++) {
+        for (int j = 0; j < (*result)->width; j++) {
             double valueToSet = 0;
             for (int k = 0; k < lhs->width; k++) {
                 valueToSet =+ lhs->member[i][k]*rhs->member[k][j];
@@ -136,5 +136,5 @@ ErrorCode matrix_multiplyWithScalar(PMatrix matrix, double scalar) {
             matrix_setValue(matrix, i ,j, scalar * matrix->member[i][j]);
         }
     }
-    return ERROR_SUCCESS
+    return ERROR_SUCCESS;
 }
