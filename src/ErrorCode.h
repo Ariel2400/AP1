@@ -4,41 +4,11 @@
 #include <stdint.h>
 
 typedef enum {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD:src/ErrorCode.h
-=======
->>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
   // DON'T CHANGE THIS VALUE!
   ERROR_SUCCESS = 0,
   ERROR_FAILURE = 1,
   ERROR_FAILURE_CANT_ALLOCATE = 2, //allocation error
   ERROR_FAILURE_INPUT_ERROR = 3 //input error, the parameters are wrong
-<<<<<<< HEAD
-=======
-    // DON'T CHANGE THIS VALUE!
-    ERROR_SUCCESS = 0,ERROR_FAILURE = 1, ERROR_FAILURE_CANT_ALLOCATE = 2,
-    ERROR_FAILURE_INPUT_ERROR = 3, ERROR_FAILURE_LOGIC = 4
->>>>>>> Added diffrent error types:ErrorCode.h
-=======
-  // DON'T CHANGE THIS VALUE!
-  ERROR_SUCCESS = 0,
-  ERROR_FAILURE = 1,
-<<<<<<< HEAD
-  ERROR_FAILURE_CANT_ALLOCATE = 2,
-<<<<<<< HEAD
-  ERROR_FAILURE_INPUT_ERROR = 3,
-  ERROR_FAILURE_LOGIC = 4
->>>>>>> Reformatted source files
-=======
-  ERROR_FAILURE_INPUT_ERROR = 3
->>>>>>> Removed ERROR_FAILURE_LOGIc due to lack of usage
-=======
-  ERROR_FAILURE_CANT_ALLOCATE = 2, //allocation error
-  ERROR_FAILURE_INPUT_ERROR = 3 //input error, the parameters are wrong
->>>>>>> added description to errors
-=======
->>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
 } ErrorCode;
 
 /**
