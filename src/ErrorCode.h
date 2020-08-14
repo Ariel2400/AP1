@@ -20,6 +20,7 @@ typedef enum {
   // DON'T CHANGE THIS VALUE!
   ERROR_SUCCESS = 0,
   ERROR_FAILURE = 1,
+<<<<<<< HEAD
   ERROR_FAILURE_CANT_ALLOCATE = 2,
 <<<<<<< HEAD
   ERROR_FAILURE_INPUT_ERROR = 3,
@@ -28,6 +29,10 @@ typedef enum {
 =======
   ERROR_FAILURE_INPUT_ERROR = 3
 >>>>>>> Removed ERROR_FAILURE_LOGIc due to lack of usage
+=======
+  ERROR_FAILURE_CANT_ALLOCATE = 2, //allocation error
+  ERROR_FAILURE_INPUT_ERROR = 3 //input error, the parameters are wrong
+>>>>>>> added description to errors
 } ErrorCode;
 
 /**
