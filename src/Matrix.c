@@ -185,19 +185,26 @@ ErrorCode matrix_add(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
   for (int i = 0; i < lhs->height; i++) {
     for (int j = 0; j < lhs->width; ++j) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Added documentaion to the linear algebra parts of the code
       matrix_setValue(
           *result, i, j,
           lhs->member[i][j] +
               rhs->member[i][j]); // according to the laws of matrix addition
+<<<<<<< HEAD
 =======
       matrix_setValue(*result, i, j, lhs->member[i][j] + rhs->member[i][j]);
 >>>>>>> moved all source code to src folder
+=======
+>>>>>>> Added documentaion to the linear algebra parts of the code
     }
   }
   return ERROR_SUCCESS;
 }
 
 ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
+<<<<<<< HEAD
 <<<<<<< HEAD
   if (lhs == NULL || rhs == NULL ||
       lhs->width != rhs->height) { // checks if the input is correct
@@ -213,10 +220,21 @@ ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
   }
   matrix_create(result, lhs->height, rhs->width);
 >>>>>>> moved all source code to src folder
+=======
+  if (lhs == NULL || rhs == NULL ||
+      lhs->width != rhs->height) { // checks if the input is correct
+    return ERROR_FAILURE_INPUT_ERROR;
+  }
+  ErrorCode success = matrix_create(result, lhs->height, rhs->width);
+  if (!error_isSuccess(success)) {
+    return ERROR_FAILURE_CANT_ALLOCATE;
+  }
+>>>>>>> Added documentaion to the linear algebra parts of the code
   for (int i = 0; i < (*result)->height; i++) {
     for (int j = 0; j < (*result)->width; j++) {
       double valueToSet = 0;
       for (int k = 0; k < lhs->width; k++) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         valueToSet +=
@@ -228,6 +246,11 @@ ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
 =======
         valueToSet += lhs->member[i][k] * rhs->member[k][j];
 >>>>>>> changed =+ to +=
+=======
+        valueToSet +=
+            lhs->member[i][k] *
+            rhs->member[k][j]; // according to the laws of matrix multiplication
+>>>>>>> Added documentaion to the linear algebra parts of the code
       }
       matrix_setValue(*result, i, j, valueToSet);
     }
@@ -255,8 +278,15 @@ ErrorCode matrix_multiplyWithScalar(PMatrix matrix, double scalar) {
   }
   for (int i = 0; i < matrix->height; i++) {
     for (int j = 0; j < matrix->width; j++) {
+<<<<<<< HEAD
       matrix_setValue(matrix, i, j, scalar * matrix->member[i][j]);
 >>>>>>> moved all source code to src folder
+=======
+      matrix_setValue(
+          matrix, i, j,
+          scalar *
+              matrix->member[i][j]); // according to the laws of linear algebra
+>>>>>>> Added documentaion to the linear algebra parts of the code
     }
   }
   return ERROR_SUCCESS;
