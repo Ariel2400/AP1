@@ -21,9 +21,13 @@ typedef enum {
   ERROR_SUCCESS = 0,
   ERROR_FAILURE = 1,
   ERROR_FAILURE_CANT_ALLOCATE = 2,
+<<<<<<< HEAD
   ERROR_FAILURE_INPUT_ERROR = 3,
   ERROR_FAILURE_LOGIC = 4
 >>>>>>> Reformatted source files
+=======
+  ERROR_FAILURE_INPUT_ERROR = 3
+>>>>>>> Removed ERROR_FAILURE_LOGIc due to lack of usage
 } ErrorCode;
 
 /**

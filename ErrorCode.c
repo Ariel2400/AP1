@@ -51,16 +51,16 @@ const char* error_getErrorMessage(ErrorCode code) {
 }
 const char *error_getErrorMessage(ErrorCode code) {
   switch (code) {
-  case ERROR_FAILURE_CANT_ALLOCATE:
-    return "Couldn't allocate memory";
-  case ERROR_FAILURE_INPUT_ERROR:
-    return "One or more of the parameters is causing an error";
-  case ERROR_FAILURE_LOGIC:
-    return "Math error";
   case ERROR_SUCCESS:
-    return "Success";
+    return "Success!";
   case ERROR_FAILURE:
-    return "Failure";
+    return "Failure!";
+  case ERROR_FAILURE_CANT_ALLOCATE:
+    return "Can't allocate!";
+  case ERROR_FAILURE_INPUT_ERROR:
+    return "Wrong input!";
+  default:
+    return "";
   }
 >>>>>>> Reformatted ErrorCode.h
 }
