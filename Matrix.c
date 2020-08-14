@@ -59,6 +59,7 @@ ErrorCode matrix_copy(PMatrix *result, CPMatrix source) {
   if (source == NULL) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     return ERROR_FAILURE_INPUT_ERROR;
   }
   matrix_create(result, source->height, source->width);
@@ -78,6 +79,9 @@ ErrorCode matrix_copy(PMatrix *result, CPMatrix source) {
 =======
 >>>>>>> Fixed bug in matrix_create
     return ERROR_FAILURE;
+=======
+    return ERROR_FAILURE_INPUT_ERROR;
+>>>>>>> reformatted spacing between functions
   }
   if (!error_isSuccess(matrix_create(result, source->height, source->width))) {
     return ERROR_FAILURE_CANT_ALLOCATE;
@@ -88,7 +92,11 @@ ErrorCode matrix_copy(PMatrix *result, CPMatrix source) {
     }
   }
 }
+<<<<<<< HEAD
 >>>>>>> moved all source code to src folder
+=======
+
+>>>>>>> reformatted spacing between functions
 void matrix_destroy(PMatrix matrix) {
   for (int i = 0; i < matrix->height; i++) {
     free(matrix->member[i]);
@@ -105,10 +113,14 @@ ErrorCode matrix_getHeight(CPMatrix matrix, uint32_t *result) {
   return ERROR_SUCCESS;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
   if (matrix == NULL || matrix->height <= 0) {
 =======
+=======
+
+>>>>>>> reformatted spacing between functions
 ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
   if (matrix == NULL || matrix->height <= 0) {
 
@@ -119,9 +131,13 @@ ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
   return ERROR_SUCCESS;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> moved all source code to src folder
+=======
+
+>>>>>>> reformatted spacing between functions
 ErrorCode matrix_setValue(PMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
                           double value) {
   if (matrix == NULL || rowIndex > matrix->height || rowIndex < 0 ||
@@ -181,7 +197,7 @@ ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
   }
 =======
   if (lhs == NULL || rhs == NULL || lhs->width != rhs->height) {
-    return ERROR_FAILURE;
+    return ERROR_FAILURE_INPUT_ERROR;
   }
   matrix_create(result, lhs->height, rhs->width);
 >>>>>>> moved all source code to src folder
@@ -206,6 +222,7 @@ ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
 ErrorCode matrix_multiplyWithScalar(PMatrix matrix, double scalar) {
   if (matrix == NULL) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return ERROR_FAILURE_INPUT_ERROR;
   }
   for (int i = 0; i < matrix->height; i++) {
@@ -216,6 +233,9 @@ ErrorCode matrix_multiplyWithScalar(PMatrix matrix, double scalar) {
               matrix->member[i][j]); // according to the laws of linear algebra
 =======
     return ERROR_FAILURE;
+=======
+    return ERROR_FAILURE_INPUT_ERROR;
+>>>>>>> reformatted spacing between functions
   }
   for (int i = 0; i < matrix->height; i++) {
     for (int j = 0; j < matrix->width; j++) {
