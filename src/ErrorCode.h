@@ -5,12 +5,16 @@
 
 typedef enum {
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD:src/ErrorCode.h
+=======
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
   // DON'T CHANGE THIS VALUE!
   ERROR_SUCCESS = 0,
   ERROR_FAILURE = 1,
   ERROR_FAILURE_CANT_ALLOCATE = 2, //allocation error
   ERROR_FAILURE_INPUT_ERROR = 3 //input error, the parameters are wrong
+<<<<<<< HEAD
 =======
     // DON'T CHANGE THIS VALUE!
     ERROR_SUCCESS = 0,ERROR_FAILURE = 1, ERROR_FAILURE_CANT_ALLOCATE = 2,
@@ -33,6 +37,8 @@ typedef enum {
   ERROR_FAILURE_CANT_ALLOCATE = 2, //allocation error
   ERROR_FAILURE_INPUT_ERROR = 3 //input error, the parameters are wrong
 >>>>>>> added description to errors
+=======
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
 } ErrorCode;
 
 /**

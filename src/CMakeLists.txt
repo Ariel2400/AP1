@@ -6,6 +6,7 @@ set(C_STANDART C99)
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 add_library(matrix SHARED ErrorCode.c Matrix.c)
 add_compile_options(-Wall -Wextra -pedantic -Werror)
 <<<<<<< HEAD:CMakeLists.txt
@@ -33,3 +34,10 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 >>>>>>> added src directory:src/CMakeLists.txt
+=======
+add_library(matrix SHARED ErrorCode.c Matrix.c)
+add_compile_options(-Wall -Wextra -pedantic -Werror)
+set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+include(CPack)
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02

@@ -59,7 +59,11 @@ build/
 #auto generated vscode files
 =======
 =======
+<<<<<<< HEAD
 >>>>>>> added a Cmake project and included auto generated files in .gitignore
+=======
+>>>>>>> 8d8343366f943eae554543198b4397ba514dd689
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
 #cmake auto-generated dir
 build/
 
@@ -67,5 +71,9 @@ build/
 <<<<<<< HEAD
 >>>>>>> added a Cmake project and included auto generated files in .gitignore
 =======
+<<<<<<< HEAD
 >>>>>>> added a Cmake project and included auto generated files in .gitignore
+=======
+>>>>>>> 8d8343366f943eae554543198b4397ba514dd689
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
 .vscode/

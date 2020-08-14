@@ -6,13 +6,19 @@
 bool error_isSuccess(ErrorCode code) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> Reformatted ErrorCode.h
+=======
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
   if (code == ERROR_SUCCESS) {
     return true;
   }
   return false;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
 }
 const char *error_getErrorMessage(ErrorCode code) {
   switch (code) {
@@ -27,6 +33,7 @@ const char *error_getErrorMessage(ErrorCode code) {
   default:
     return "";
   }
+<<<<<<< HEAD
 =======
     if (code == ERROR_SUCCESS) {
         return true;
@@ -63,4 +70,6 @@ const char *error_getErrorMessage(ErrorCode code) {
     return "";
   }
 >>>>>>> Reformatted ErrorCode.h
+=======
+>>>>>>> 2c44f44094a0db5154e0ed8bef6fadc1554dfc02
 }
