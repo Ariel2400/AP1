@@ -13,7 +13,7 @@ typedef struct Matrix {
 } Matrix;
 
 ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
-  if (matrix != NULL) {
+  if (matrix == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
   *matrix = (Matrix *)malloc(sizeof(Matrix));
@@ -29,7 +29,7 @@ ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
   }
   for (int i = 0; i < (*matrix)->height; i++) {
     (*matrix)->member[i] =
-        (double *)calloc((*matrix)->width, (*matrix)->width * sizeof(double));
+        (double *)calloc((*matrix)->width, sizeof(double));
     if ((*matrix)->member[i] == NULL) {
       free((*matrix)->member);
       free(*matrix);
@@ -41,7 +41,6 @@ ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
 
 ErrorCode matrix_copy(PMatrix *result, CPMatrix source) {
   if (source == NULL) {
-    error_getErrorMessage(ERROR_FAILURE_INPUT_ERROR);
     return ERROR_FAILURE;
   }
   if (!error_isSuccess(matrix_create(result, source->height, source->width))) {
