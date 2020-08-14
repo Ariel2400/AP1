@@ -37,6 +37,7 @@ ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
   }
   for (int i = 0; i < (*matrix)->height; i++) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     (*matrix)->member[i] = (double *)calloc((*matrix)->width, sizeof(double));
 =======
     (*matrix)->member[i] =
@@ -46,6 +47,9 @@ ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
 =======
         (double *)calloc((*matrix)->width, sizeof(double));
 >>>>>>> Fixed bug in matrix_create
+=======
+    (*matrix)->member[i] = (double *)calloc((*matrix)->width, sizeof(double));
+>>>>>>> fixed bug in matrix_copy
     if ((*matrix)->member[i] == NULL) {
       free((*matrix)->member);
       free(*matrix);
@@ -83,14 +87,16 @@ ErrorCode matrix_copy(PMatrix *result, CPMatrix source) {
     return ERROR_FAILURE_INPUT_ERROR;
 >>>>>>> reformatted spacing between functions
   }
-  if (!error_isSuccess(matrix_create(result, source->height, source->width))) {
+  matrix_create(result, source->height, source->width);
+  if (result == NULL) {
     return ERROR_FAILURE_CANT_ALLOCATE;
   }
-  for (int i = 0; i < (*result)->height; i++) {
-    for (int j = 0; j < (*result)->width; j++) {
+  for (int i = 0; i < source->height; i++) {
+    for (int j = 0; j < source->width; j++) {
       matrix_setValue(*result, i, j, source->member[i][j]);
     }
   }
+  return ERROR_SUCCESS;
 }
 <<<<<<< HEAD
 >>>>>>> moved all source code to src folder
@@ -117,6 +123,7 @@ ErrorCode matrix_getHeight(CPMatrix matrix, uint32_t *result) {
 
 ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
   if (matrix == NULL || matrix->height <= 0) {
+<<<<<<< HEAD
 =======
 =======
 
@@ -125,6 +132,8 @@ ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
   if (matrix == NULL || matrix->height <= 0) {
 
 >>>>>>> moved all source code to src folder
+=======
+>>>>>>> fixed bug in matrix_copy
     return ERROR_FAILURE_INPUT_ERROR;
   }
   *result = (int)matrix->width;
@@ -143,9 +152,12 @@ ErrorCode matrix_setValue(PMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
   if (matrix == NULL || rowIndex > matrix->height || rowIndex < 0 ||
       colIndex > matrix->width || colIndex < 0) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> moved all source code to src folder
+=======
+>>>>>>> fixed bug in matrix_copy
     return ERROR_FAILURE_INPUT_ERROR;
   }
   (matrix)->member[rowIndex][colIndex] = value;
