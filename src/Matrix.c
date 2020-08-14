@@ -218,12 +218,16 @@ ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
       double valueToSet = 0;
       for (int k = 0; k < lhs->width; k++) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         valueToSet +=
             lhs->member[i][k] *
             rhs->member[k][j]; // according to the laws of matrix multiplication
 =======
         valueToSet = +lhs->member[i][k] * rhs->member[k][j];
 >>>>>>> moved all source code to src folder
+=======
+        valueToSet += lhs->member[i][k] * rhs->member[k][j];
+>>>>>>> changed =+ to +=
       }
       matrix_setValue(*result, i, j, valueToSet);
     }
