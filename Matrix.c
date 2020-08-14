@@ -28,8 +28,7 @@ ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
     return ERROR_FAILURE_CANT_ALLOCATE;
   }
   for (int i = 0; i < (*matrix)->height; i++) {
-    (*matrix)->member[i] =
-        (double *)calloc((*matrix)->width, sizeof(double));
+    (*matrix)->member[i] = (double *)calloc((*matrix)->width, sizeof(double));
     if ((*matrix)->member[i] == NULL) {
       free((*matrix)->member);
       free(*matrix);
@@ -43,14 +42,16 @@ ErrorCode matrix_copy(PMatrix *result, CPMatrix source) {
   if (source == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
-  if (!error_isSuccess(matrix_create(result, source->height, source->width))) {
+  matrix_create(result, source->height, source->width);
+  if (result == NULL) {
     return ERROR_FAILURE_CANT_ALLOCATE;
   }
-  for (int i = 0; i < (*result)->height; i++) {
-    for (int j = 0; j < (*result)->width; j++) {
+  for (int i = 0; i < source->height; i++) {
+    for (int j = 0; j < source->width; j++) {
       matrix_setValue(*result, i, j, source->member[i][j]);
     }
   }
+  return ERROR_SUCCESS;
 }
 
 void matrix_destroy(PMatrix matrix) {
@@ -71,7 +72,6 @@ ErrorCode matrix_getHeight(CPMatrix matrix, uint32_t *result) {
 
 ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
   if (matrix == NULL || matrix->height <= 0) {
-
     return ERROR_FAILURE_INPUT_ERROR;
   }
   *result = (int)matrix->width;
@@ -82,7 +82,6 @@ ErrorCode matrix_setValue(PMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
                           double value) {
   if (matrix == NULL || rowIndex > matrix->height || rowIndex < 0 ||
       colIndex > matrix->width || colIndex < 0) {
-
     return ERROR_FAILURE_INPUT_ERROR;
   }
   (matrix)->member[rowIndex][colIndex] = value;
