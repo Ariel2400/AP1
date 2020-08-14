@@ -123,7 +123,7 @@ ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
     for (int j = 0; j < (*result)->width; j++) {
       double valueToSet = 0;
       for (int k = 0; k < lhs->width; k++) {
-        valueToSet = +lhs->member[i][k] * rhs->member[k][j];
+        valueToSet += lhs->member[i][k] * rhs->member[k][j];
       }
       matrix_setValue(*result, i, j, valueToSet);
     }
