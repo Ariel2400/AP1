@@ -7,3 +7,6 @@ for the Matrix struct, I used a dynamicaaly-allocated 2-D Array.
 in addition, the struct holds height and width parameters for quick access.
 
 Added diffrent error types, for diffrent messages.
+
+##Tests
+apart from the test given to us by the instructor, the code was tested indepndently
