@@ -148,7 +148,7 @@ ErrorCode matrix_multiplyWithScalar(PMatrix matrix, double scalar) {
       matrix_setValue(
           matrix, i, j,
           scalar *
-              matrix->members[i * (matrix->width) + k]); // according to the laws of linear algebra
+              matrix->members[i * (matrix->width) + j]); // according to the laws of linear algebra
     }
   }
   return ERROR_SUCCESS;
