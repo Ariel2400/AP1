@@ -4,10 +4,7 @@
 #include "ErrorCode.h"
 
 bool error_isSuccess(ErrorCode code) {
-  if (code == ERROR_SUCCESS) {
-    return true;
-  }
-  return false;
+  return code == ERROR_SUCCESS;
 }
 const char *error_getErrorMessage(ErrorCode code) {
   switch (code) {
