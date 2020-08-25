@@ -8,7 +8,11 @@ typedef enum {
   ERROR_SUCCESS = 0,
   ERROR_FAILURE = 1,
   ERROR_FAILURE_CANT_ALLOCATE = 2, //allocation error
-  ERROR_FAILURE_INPUT_ERROR = 3 //input error, the parameters are wrong
+  ERROR_FAILURE_INPUT_ERROR = 3, //input error, the parameters are wrong
+  ERROR_FAILURE_MATRIX_CANT_ADD = 4, //can't add, needs to be the same height and width
+  ERROR_FAILURE_MATRIX_CANT_MULT = 5, //can't multiply, the left height needs
+                                      //to be equal to the right width
+  ERROR_FAILURE_OUT_OF_BOUNDS = 6 //trying to access out of bounds of the matrix
 } ErrorCode;
 
 /**

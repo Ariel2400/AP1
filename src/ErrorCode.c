@@ -15,7 +15,13 @@ const char *error_getErrorMessage(ErrorCode code) {
   case ERROR_FAILURE_CANT_ALLOCATE:
     return "Can't allocate!";
   case ERROR_FAILURE_INPUT_ERROR:
-    return "Wrong input!";
+    return "An empty matrix is given!";
+    case ERROR_FAILURE_MATRIX_CANT_ADD:
+    return "Can't add these two matrices, check their height and width!";
+    case ERROR_FAILURE_MATRIX_CANT_MULT:
+    return "Can't multiply these two matrices. check if they can be multiplied!";
+    case ERROR_FAILURE_OUT_OF_BOUNDS:
+    return "Can't access out of the bounds of the matrix!";
   default:
     return "";
   }
