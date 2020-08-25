@@ -13,12 +13,15 @@ typedef struct Matrix {
 } Matrix;
 
 ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
+  if (matrix == NULL) {
+    return ERROR_FAILURE_INPUT_ERROR;
+  }
   *matrix = (Matrix *)malloc(sizeof(Matrix));
-  if(*matrix==NULL){
+  if (*matrix == NULL) {
     return ERROR_FAILURE_CANT_ALLOCATE;
   }
-  (*matrix)->members = (double *)calloc(height*width, sizeof(double));
-  if(*matrix == NULL){
+  (*matrix)->members = (double *)calloc(height * width, sizeof(double));
+  if ((*matrix)->members == NULL) {
     free(*matrix);
     return ERROR_FAILURE_CANT_ALLOCATE;
   }
@@ -31,24 +34,13 @@ ErrorCode matrix_copy(PMatrix *result, CPMatrix source) {
   if (source == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
-  uint32_t *height;
-  uint32_t *width;
-  if(!error_isSuccess(matrix_getWidth(source, width))){
+  if (!error_isSuccess(matrix_create(result, source->height, source->width))) {
     return ERROR_FAILURE_CANT_ALLOCATE;
   }
-  if(!error_isSuccess(matrix_getHeight(source, height))){
-    return ERROR_FAILURE_CANT_ALLOCATE;
-  }
-  if(!error_isSuccess(matrix_create(result, source->height, source->width))){
-    return ERROR_FAILURE_CANT_ALLOCATE;
-  }
-  for (int i = 0; i < source->height; i++) {
-    for (int j = 0; j < source->width; j++) {
-      double *value; 
-      if(!error_isSuccess(matrix_getValue(source, i, j, value))){
-        return ERROR_FAILURE;
-      }
-      matrix_setValue(*result, i, j, *value);
+  for (int i = 0; i < source->height; ++i) {
+    for (int j = 0; j < source->width; ++j) {
+      (*result)->members[i * (*result)->width + j] =
+          source->members[i * source->width + j];
     }
   }
   return ERROR_SUCCESS;
@@ -68,72 +60,81 @@ ErrorCode matrix_getHeight(CPMatrix matrix, uint32_t *result) {
 }
 
 ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
-  if (matrix == NULL || matrix->height <= 0) {
+  if (matrix == NULL || matrix->width <= 0) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
   *result = matrix->width;
   return ERROR_SUCCESS;
 }
 
-ErrorCode matrix_setValue(PMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
-                          double value) {
-  if (matrix == NULL || rowIndex > matrix->height || rowIndex < 0 ||
-      colIndex > matrix->width || colIndex < 0) {
+ErrorCode matrix_setValue(PMatrix matrix, const uint32_t rowIndex,
+                          const uint32_t colIndex, double value) {
+  if (matrix == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
-  matrix->members[rowIndex * (matrix->width) + colIndex];
+  if (rowIndex > matrix->height || rowIndex < 0 || colIndex > matrix->width ||
+      colIndex < 0) {
+    return ERROR_FAILURE_OUT_OF_BOUNDS;
+  }
+  matrix->members[rowIndex * (matrix->width) + colIndex] = value;
   return ERROR_SUCCESS;
 }
 
 ErrorCode matrix_getValue(CPMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
                           double *value) {
-  if (matrix == NULL || rowIndex < 0 || rowIndex >= matrix->height ||
-      colIndex < 0 || colIndex >= matrix->width) {
+  if (matrix == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
-  *value = matrix->members[rowIndex * (matrix->width) + colIndex];
+  if (rowIndex < 0 || rowIndex > matrix->height || colIndex < 0 ||
+      colIndex > matrix->width) {
+    return ERROR_FAILURE_OUT_OF_BOUNDS;
+  }
+  *value = matrix->members[rowIndex * matrix->width + colIndex];
   return ERROR_SUCCESS;
 }
 
 ErrorCode matrix_add(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
-  if ((lhs->height != rhs->height) || (lhs->width != rhs->width) ||
-      lhs == NULL || rhs == NULL) {
+  if (lhs == NULL || rhs == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
+  if ((lhs->height != rhs->height) || (lhs->width != rhs->width)) {
+    return ERROR_FAILURE_MATRIX_CANT_ADD;
+  }
   if (result == NULL) {
-    matrix_create(result, lhs->height, lhs->width);
+    if (!error_isSuccess(matrix_create(result, lhs->height, lhs->width))) {
+      return ERROR_FAILURE_CANT_ALLOCATE;
+    }
   }
   for (int i = 0; i < lhs->height; ++i) {
     for (int j = 0; j < lhs->width; ++j) {
-      matrix_setValue(
-          *result, i, j,
+      (*result)->members[i * (lhs->width) + j] =
           lhs->members[i * (lhs->width) + j] +
-              rhs->members[i * (rhs->width) + j]); // according to the laws of matrix addition
+          rhs->members[i * (rhs->width) + j];
+      // according to the laws of matrix addition
     }
   }
   return ERROR_SUCCESS;
 }
 
 ErrorCode matrix_multiplyMatrices(PMatrix *result, CPMatrix lhs, CPMatrix rhs) {
-  if (lhs == NULL || rhs == NULL ||
-      lhs->width != rhs->height) { // checks if the input is correct
+  if (lhs == NULL || rhs == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
-  ErrorCode success = matrix_create(result, lhs->height, rhs->width);
-  if (!error_isSuccess(success)) {
+  if (lhs->width != rhs->height) {
+    return ERROR_FAILURE_MATRIX_CANT_MULT;
+  }
+  if (!error_isSuccess(matrix_create(result, lhs->height, rhs->width))) {
     return ERROR_FAILURE_CANT_ALLOCATE;
   }
   for (int i = 0; i < (*result)->height; ++i) {
     for (int j = 0; j < (*result)->width; ++j) {
       double valueToSet = 0.0;
-      for (int k = 0; k < lhs->width; k++) {
-        valueToSet +=
-            lhs->members[i * (lhs->width) + k] *
-            rhs->members[k * (lhs->width) + j]; // according to the laws of matrix multiplication
+      for (int k = 0; k < lhs->width; ++k) {
+        valueToSet += lhs->members[i * (lhs->width) + k] *
+                      rhs->members[k * (lhs->width) + j];
+        // according to linear algebra rules
       }
-      if(!error_isSuccess(matrix_setValue(*result, i, j, valueToSet))){
-        return ERROR_FAILURE;
-      }
+      (*result)->members[i * (*result)->width + j] = valueToSet;
     }
   }
   return ERROR_SUCCESS;
@@ -144,11 +145,9 @@ ErrorCode matrix_multiplyWithScalar(PMatrix matrix, double scalar) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
   for (int i = 0; i < matrix->height; ++i) {
-    for (int j = 0; j < matrix->width; j++) {
-      matrix_setValue(
-          matrix, i, j,
-          scalar *
-              matrix->members[i * (matrix->width) + j]); // according to the laws of linear algebra
+    for (int j = 0; j < matrix->width; ++j) {
+      matrix->members[i * matrix->width + j] *= scalar;
+      // according to the laws of linear algebra
     }
   }
   return ERROR_SUCCESS;
