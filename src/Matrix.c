@@ -12,7 +12,8 @@ typedef struct Matrix {
   uint32_t height;
 } Matrix;
 
-ErrorCode matrix_create(PMatrix *matrix, uint32_t height, uint32_t width) {
+ErrorCode matrix_create(PMatrix *matrix, uint32_t const height,
+                        uint32_t const width) {
   if (matrix == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
@@ -67,8 +68,8 @@ ErrorCode matrix_getWidth(CPMatrix matrix, uint32_t *result) {
   return ERROR_SUCCESS;
 }
 
-ErrorCode matrix_setValue(PMatrix matrix, const uint32_t rowIndex,
-                          const uint32_t colIndex, double value) {
+ErrorCode matrix_setValue(PMatrix matrix, uint32_t const rowIndex,
+                          uint32_t const colIndex, double const value) {
   if (matrix == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
@@ -80,8 +81,8 @@ ErrorCode matrix_setValue(PMatrix matrix, const uint32_t rowIndex,
   return ERROR_SUCCESS;
 }
 
-ErrorCode matrix_getValue(CPMatrix matrix, uint32_t rowIndex, uint32_t colIndex,
-                          double *value) {
+ErrorCode matrix_getValue(CPMatrix matrix, uint32_t const rowIndex,
+                          uint32_t const colIndex, double *value) {
   if (matrix == NULL) {
     return ERROR_FAILURE_INPUT_ERROR;
   }
